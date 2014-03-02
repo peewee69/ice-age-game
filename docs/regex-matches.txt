@@ -5,3 +5,8 @@
 # Remove trailing space
 ,\r\n(\r\n)*([ \t]*})
 \r\n$2
+
+# Replace keys in data
+
+                 '0.006':(.*)\n                 '0.005':(.*)\n                 '0.002':(.*)\n
+                 '-0.006':$1\n                 '-0.004':$2\n                 '-0.002':$3\n

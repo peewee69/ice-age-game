@@ -1,89 +1,162 @@
 ﻿<!DOCTYPE html>
-<html data-ng-app="app">
+<html>
 <head>
-    <style>
-        /* This helps the ng-show/ng-hide animations start at the right place. */
-        /* Since Angular has this but needs to load, this gives us the class early. */
-        .ng-hide {
-            display: none!important;
-        }
-    </style>
-    <title data-ng-bind="title">Hot Towel Angular</title>
+    <title>Ice Age Game</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    
+    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="Content/superslides.css" rel="stylesheet" />
+    <link href="Content/ice-age-styles.css" rel="stylesheet" />
 
-    <script>
-        // Must be first. IE10 mobile viewport fix
-        if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
-            var msViewportStyle = document.createElement("style");
-            var mq = "@-ms-viewport{width:auto!important}";
-            msViewportStyle.appendChild(document.createTextNode(mq));
-            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
-        }
+    <script src="Content/scripts/ice-age-main.js"></script>
+    <script src="Content/scripts/ice-age-data-points.js"></script>
+    <script src="Scripts/jquery-2.1.0.min.js"></script>
+    <script src="Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="Scripts/jquery.easing.1.3.js"></script>
+    <script src="Scripts/jquery.animate-enhanced.min.js"></script>
+    <script src="Scripts/jquery.superslides.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#slides').superslides({
+                hashchange: false,
+                pagination: false
+            })
+            .bind('animating.slides', function (e) {
+                var $current = $(this).superslides('$current');
+
+                if ($current.attr('id') == 'slider-select') {
+                    window.IceAge.Values = {
+                        precession: $('#precession').slider("value"),
+                        eccentricity: $('#eccentricity').slider("value"),
+                        obliquity: $('#obliquity').slider("value")
+                    }
+                }
+            })
+            .bind('animated.slides', function (e) {
+                var $current = $(this).superslides('$current');
+
+                if ($current.attr('id') == 'game-results') {
+                    IceAge.runEndSequence($(this).superslides('$current'));
+                }
+            });
+        });
     </script>
-
-    <link href="content/ie10mobile.css" rel="stylesheet" />
-    <link href="content/bootstrap.min.css" rel="stylesheet" />
-    <link href="content/font-awesome.min.css" rel="stylesheet" />
-    <link href="content/toastr.css" rel="stylesheet" />
-    <link href="content/customtheme.css" rel="stylesheet">
-    <link href="content/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        <div data-ng-include="'/app/layout/shell.html'"></div>
-        <div id="splash-page" data-ng-show="false">
-            <div class="page-splash">
-                <div class="page-splash-message">
-                    Gamification
-                </div>
-                <div class="progress progress-striped active page-progress-bar">
-                    <div class="bar"></div>
-                </div>
+  <div id="slides">
+    <div class="slides-container">
+      <div id="intro">
+          <h1>Create your own ice age</h1>
+      </div>
+      <div id="instructions">
+          <h1>Create your own ice age</h1>
+          <div class="text-panel">
+              <p>
+                  You are invited to play God with Planet Earth and doom the planet and its inhabitants to ice age conditions – 
+                  but do you know how to do it?
+              </p>
+          </div>
+      </div>
+      <div id="background">
+          <h1>Background</h1>
+          <div class="text-panel">
+              <p>
+              Global climate and the amount of heat received by the Earth from the sun is influenced by 3 main orbital parameters – (so called ‘Milankovitch cycles’)
+              </p>
+              <ul>
+                  <li>
+                        <strong>Eccentricity</strong> – influences the shape of orbit around the Earth – varies between circular and elliptical – this change occurs over a 96 ka period – its regulates the amount of heat received by the Earth - nicknamed ‘orbit’
+                  </li>
+                  <li>
+                      <strong>Obliquity</strong> – influences the tilt of the Earth as it orbits around the sun – ranging from 21-24 deg over a 42 ka period – this regulates the distribution of heat around the globe - nicknamed ‘tilt’ 
+                  </li>
+                  <li>
+                        <strong>Precession</strong> – the gravitational pull of the moon on the watery planet causes the Earth to ‘wobble’ on its axis as it orbits the Earth causing the seasons to move around the sun over a 21 ka period – this means that it ranges from the winter being closest to the sun (apehelion) and then 21 ka later the summer is closest to the sun (perihelion) and also regulates the distributions of heat around the globe – nicknamed ‘wobble’
+                        These are combined to produce a complex pattern of variable heat exchanged between the sun and the Earth – certain combinations will bring about an ice age
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div id="mission">
+          <div class="text-panel">
+              <h1>Mission</h1>
+              <p>
+                Play with these parameters until you have worked out which extent of each parameter creates the least heat for the Earth – i.e., would it be cooler when the orbit is circular or elliptical?
+                <br />Then set the parameters using the sliding scale to try and create an ice age in the least number of attempts 
+              </p>
+              <div class="instruction-videos">
+                        <video controls="controls" name="Video Name" src="Content/videos/background-loop.mov"></video>
+                        <video controls="controls"  name="Video Name" src="Content/videos/background-loop.mov"></video>
+                        <video controls="controls"  name="Video Name" src="Content/videos/background-loop.mov"></video>
+               </div>
+          </div>
+      </div>
+      <div id="slider-select">
+            <h1>Select your parameters</h1>
+
+            <div class="slider-row">
+                <div>Eccentricity: <span class="value" /></div>
+                <div class="slider" id="eccentricity"></div>
             </div>
-        </div>
+
+            <div class="slider-row">
+                <div>Obliquity: <span class="value" /></div>
+                <div class="slider" id="obliquity"></div>
+            </div>
+
+            <div class="slider-row">
+                <div>Precession: <span class="value" /></div>
+                <div class="slider" id="precession"></div>
+            </div>
+
+            <script type="text/javascript">
+                $(function () {
+                    var defaultSliderConfig = {
+                        range: false,
+                        slide: function (event, ui) {
+                            $(this).parent().find(".value").text(ui.value);
+                        }
+                    };
+
+                    var precessionSliderConfig = {
+                        min: 0.005,
+                        max: 0.06,
+                        step: 0.005
+                    };
+
+                    var eccentricitySliderConfig = {
+                        min: 21.5,
+                        max: 24.5,
+                        step: 0.5
+                    };
+
+                    var obliquitySliderConfig = {
+                        min: -0.006,
+                        max: 0.006,
+                        step: 0.002
+                    };
+
+                    $(".slider#precession").slider($.extend(defaultSliderConfig, precessionSliderConfig));
+
+                    $(".slider#eccentricity").slider($.extend(defaultSliderConfig, eccentricitySliderConfig));
+
+                    $(".slider#obliquity").slider($.extend(defaultSliderConfig, obliquitySliderConfig));
+                });
+            </script>
+      </div>
+      <div id="game-results">
+          <video name="Video Name" src="Content/videos/background-loop.mov" />
+      </div>
     </div>
 
-    <span data-cc-scroll-to-top></span>
-
-    <!-- Vendor Scripts -->
-    <script src="scripts/jquery-2.0.3.js"></script>
-    <script src="scripts/angular.js"></script>
-    <script src="scripts/angular-animate.js"></script>
-    <script src="scripts/angular-route.js"></script>
-    <script src="scripts/angular-sanitize.js"></script>
-    <script src="scripts/bootstrap.js"></script>
-    <script src="scripts/toastr.js"></script>
-    <script src="scripts/moment.js"></script>
-    <script src="scripts/ui-bootstrap-tpls-0.10.0.js"></script>
-    <script src="scripts/spin.js"></script>
-
-    <!-- Data Points -->
-    <script src="app/data/ice-age-data-points.js"></script>
-
-    <!-- Bootstrapping -->
-    <script src="app/app.js"></script>
-    <script src="app/config.js"></script>
-    <script src="app/config.exceptionHandler.js"></script>
-    <script src="app/config.route.js"></script>
-
-    <!-- common Modules -->
-    <script src="app/common/common.js"></script>
-    <script src="app/common/logger.js"></script>
-    <script src="app/common/spinner.js"></script>
-
-    <!-- common.bootstrap Modules -->
-    <script src="app/common/bootstrap/bootstrap.dialog.js"></script>
-
-    <!-- app -->
-    <script src="app/admin/admin.js"></script>
-    <script src="app/dashboard/dashboard.js"></script>
-    <script src="app/layout/shell.js"></script>
-    <script src="app/layout/sidebar.js"></script>
-
-    <!-- app Services -->
-    <script src="app/services/datacontext.js"></script>
-    <script src="app/services/directives.js"></script>
+    <nav class="slides-navigation">
+      <a href="#" class="next">Next</a>
+      <a href="#" class="prev">Prev</a>
+    </nav>
+  </div>
 </body>
 </html>
+

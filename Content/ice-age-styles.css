@@ -1,0 +1,60 @@
+﻿/* Font and heading styles */
+
+html { font-size: 62.5%; } 
+
+body
+{
+    font-size:3rem;
+    color: white;
+}
+
+h1
+{
+    margin:5rem auto;
+    text-align:center;
+}
+
+.text-panel
+{
+    width:57%;
+}
+
+/* Slider sections */
+
+.slides-container > *
+{
+    padding:10rem;
+    background-image: url('images/background-globe.png')
+}
+
+/* your mission panel */
+.instruction-videos
+{
+    margin: 6rem 0;
+}
+
+.instruction-videos video
+{
+    float:left;
+    width: 30rem;
+    margin-right:6rem;
+}
+
+/* sliders */
+.slider-row
+{
+    width:40%;
+    margin:2rem 3rem;
+}
+
+.slider-row > div
+{
+    margin:1rem auto;
+    text-align:center;
+}
+
+/* game results */
+#game-results video
+{
+    display:none;
+}
