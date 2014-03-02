@@ -1,5 +1,11 @@
 ﻿/* Font and heading styles */
 
+@font-face
+{
+    font-family: LalyUPC;
+    src: url('./../Fonts/upclb.ttf');
+}
+
 html { font-size: 62.5%; } 
 
 body
@@ -10,21 +16,29 @@ body
 
 h1
 {
-    margin:5rem auto;
+    font-family:LalyUPC;
+    margin:1rem auto;
     text-align:center;
 }
 
 .text-panel
 {
-    width:57%;
+    font-family:Arial;
+    letter-spacing: 0.0625rem;
+    font-size:1.6rem;
+    width:50%;
 }
 
 /* Slider sections */
 
 .slides-container > *
 {
-    padding:10rem;
-    background-image: url('images/background-globe.png')
+    background-color:black;
+	padding:2rem 10rem;
+	background-image: url('images/ui-start.jpg');
+    background-repeat:no-repeat;
+	background-position: top right;
+    background-size: contain;
 }
 
 /* your mission panel */
@@ -54,7 +68,19 @@ h1
 }
 
 /* game results */
-#game-results video
+#game-results
 {
+  position: relative;
+  padding:0;
+}
+
+#game-results *
+{
+  position: absolute;
+  top:0;
+  left:0;
+}
+
+#outcome-content {
     display:none;
 }

@@ -74,8 +74,8 @@
                       <strong>Obliquity</strong> – influences the tilt of the Earth as it orbits around the sun – ranging from 21-24 deg over a 42 ka period – this regulates the distribution of heat around the globe - nicknamed ‘tilt’ 
                   </li>
                   <li>
-                        <strong>Precession</strong> – the gravitational pull of the moon on the watery planet causes the Earth to ‘wobble’ on its axis as it orbits the Earth causing the seasons to move around the sun over a 21 ka period – this means that it ranges from the winter being closest to the sun (apehelion) and then 21 ka later the summer is closest to the sun (perihelion) and also regulates the distributions of heat around the globe – nicknamed ‘wobble’
-                        These are combined to produce a complex pattern of variable heat exchanged between the sun and the Earth – certain combinations will bring about an ice age
+                      <p><strong>Precession</strong> – the gravitational pull of the moon on the watery planet causes the Earth to ‘wobble’ on its axis as it orbits the Earth causing the seasons to move around the sun over a 21 ka period – this means that it ranges from the winter being closest to the sun (apehelion) and then 21 ka later the summer is closest to the sun (perihelion) and also regulates the distributions of heat around the globe – nicknamed ‘wobble’</p>
+                      <p>These are combined to produce a complex pattern of variable heat exchanged between the sun and the Earth – certain combinations will bring about an ice age</p>
                   </li>
               </ul>
           </div>
@@ -87,24 +87,24 @@
                 Play with these parameters until you have worked out which extent of each parameter creates the least heat for the Earth – i.e., would it be cooler when the orbit is circular or elliptical?
                 <br />Then set the parameters using the sliding scale to try and create an ice age in the least number of attempts 
               </p>
-              <div class="instruction-videos">
-                        <video controls="controls" name="Video Name" src="Content/videos/background-loop.mov"></video>
-                        <video controls="controls"  name="Video Name" src="Content/videos/background-loop.mov"></video>
-                        <video controls="controls"  name="Video Name" src="Content/videos/background-loop.mov"></video>
-               </div>
+          </div>
+          <div class="instruction-videos">
+              <video controls="controls" name="Eccentricity Example" src="Content/videos/example-ecc.mov"></video>
+              <video controls="controls" name="Obliquity Example" src="Content/videos/example-obl.mov"></video>
+              <video controls="controls" name="Precession Name" src="Content/videos/example-pre.mov"></video>
           </div>
       </div>
       <div id="slider-select">
             <h1>Select your parameters</h1>
 
-            <div class="slider-row">
-                <div>Eccentricity: <span class="value" /></div>
-                <div class="slider" id="eccentricity"></div>
-            </div>
+          <div class="slider-row">
+              <div>Eccentricity: <span class="value" /></div>
+              <div class="slider" id="obliquity"></div>
+          </div>
 
             <div class="slider-row">
                 <div>Obliquity: <span class="value" /></div>
-                <div class="slider" id="obliquity"></div>
+                <div class="slider" id="eccentricity"></div>
             </div>
 
             <div class="slider-row">
@@ -121,7 +121,7 @@
                         }
                     };
 
-                    var precessionSliderConfig = {
+                    var obliquitySliderConfig = {
                         min: 0.005,
                         max: 0.06,
                         step: 0.005
@@ -133,7 +133,7 @@
                         step: 0.5
                     };
 
-                    var obliquitySliderConfig = {
+                    var precessionSliderConfig = {
                         min: -0.006,
                         max: 0.006,
                         step: 0.002
@@ -148,7 +148,13 @@
             </script>
       </div>
       <div id="game-results">
-          <video name="Video Name" src="Content/videos/background-loop.mov" />
+          <video id="outcome-video" name="Video Name" />
+          <div class="text-panel" id="outcome-content">
+              <h1>You created a <span class="outcome-title"></span></h1>
+              <div class="text-panel">
+                  <span class="outcome-html"></span><img id="outcome-image" />
+              </div>
+          </div>
       </div>
     </div>
 
