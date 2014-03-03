@@ -20,7 +20,9 @@ body > video
 {
     position: absolute;
     z-index: 0;
-    width: 100%;
+    bottom:0;
+    right:0;
+    height: 100%;
 }
 
 h1
@@ -88,8 +90,8 @@ a.ui-slider-handle {
     font-size: 2.4rem;
     position: absolute;
     top: -3rem;
+    color: azure;
 }
-
 .slider-panel
 {
     padding: 0 5rem;
@@ -172,9 +174,9 @@ a.ui-slider-handle {
 }
 
 #outcome-image {
-    width: 670px;
-    float: left;
-    margin: 1.5rem 0 3rem 0;
+    width: 80%;
+    margin: 3rem auto;
+    display: block;
 }
 
 #result-table {
@@ -188,19 +190,20 @@ a.ui-slider-handle {
     background-repeat:no-repeat;
 }
 
-#result-table tr td
-{
+#result-table > tbody td {
+    width: 96px;
     position:relative;
 }
 
 #result-pointer {
-    position:absolute;
+    position: absolute;
     background-image: url('./images/resultpoint.png');
     width: 54px;
     height: 74px;
     margin: 0;
     padding: 0;
-    margin-top: -25px;
+    left: 20px;
+    top: 12px;
 }
 
 .text-panel-outcome {

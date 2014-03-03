@@ -20,14 +20,56 @@
 
     <script type="text/javascript">
         $(function () {
+            $('.slides-navigation .prev').hide();
+
+            $('.slides-navigation .new').on('click',
+            function(){
+                window.IceAge.Attempts = 0,
+                $('#background-video').fadeIn(1000);
+                $('#slides').superslides('animate', 0);
+
+                $('.slides-navigation a').hide();
+                $('.slides-navigation .next').show();
+
+                $('#outcome-video').hide();
+                window.IceAge.ResetValues();
+
+            });
+
+            $('.slides-navigation .re-try').on('click', function () {
+                $('#background-video').fadeIn(1000);
+                $('#slides').superslides('animate', 'prev');
+
+                $('.slides-navigation a').hide();
+                $('.slides-navigation .next').show();
+                $('.slides-navigation .prev').show();
+
+                $('#outcome-video').hide();
+                window.IceAge.ResetValues();
+            });
+
             $('#slides').superslides({
+                animation: 'slide',
+                animation_speed: 600,
                 hashchange: false,
                 pagination: false
+            })
+            .bind('init.slides', function (e) {
+
             })
             .bind('animating.slides', function (e) {
                 var $current = $(this).superslides('$current');
 
                 if ($current.attr('id') == 'slider-select') {
+                    // Hide controls
+                    $('.slides-navigation a').hide();
+
+                    // Fade background video
+                    $('#background-video').fadeOut(1000);
+
+                    //Blank out content
+                    $('#outcome-panel').hide();
+
                     window.IceAge.Values = {
                         precession: $('#precession').slider("value"),
                         eccentricity: $('#eccentricity').slider("value"),
@@ -38,15 +80,27 @@
             .bind('animated.slides', function (e) {
                 var $current = $(this).superslides('$current');
 
+                if ($current.attr('id') !== 'game-results') {
+                    $('.next').show();
+                } else {
+                    $('.next').hide();
+                }
+
+                if ($current.attr('id') !== 'spalsh-screen' && $current.attr('id') !== 'game-results') {
+                    $('.prev').show();
+                } else {
+                    $('.prev').hide();
+                }
+
                 if ($current.attr('id') == 'game-results') {
-                    IceAge.runEndSequence($(this).superslides('$current'));
+                    IceAge.RunEndSequence($(this).superslides('$current'));
                 }
             });
         });
     </script>
 </head>
 <body>
-  <video autoplay="autoplay" loop="loop" name="Background Loop" src="Content/videos/ui-loop.mov"></video>
+  <video id="background-video" autoplay="autoplay" loop="loop" name="Background Loop" src="Content/videos/ui-loop.mov"></video>
   <div id="slides">
     <div class="slides-container">
       <div id="spalsh-screen">
@@ -80,7 +134,7 @@
           <h1>Mission</h1>
           <div class="text-panel">
               <p>
-                Play with these parameters until you have worked out which extent of each parameter creates the least heat for the Earth – i.e., would it be cooler when the orbit is circular or elliptical?
+                Play with these parameters until you have worked out which extent of each parameter creates the least heat for the Earth – i.e. would it be cooler when the orbit is circular or elliptical?
                 <br />Then set the parameters using the sliding scale to try and create an ice age in the least number of attempts 
               </p>
           </div>
@@ -181,13 +235,13 @@
                       </thead>
                       <tbody>
                           <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
+                              <td id="one"><div id="result-pointer"></div></td>
+                              <td id="two"></td>
+                              <td id="three"></td>
+                              <td id="four"></td>
+                              <td id="five"></td>
+                              <td id="six"></td>
+                              <td id="seven"></td>
                           </tr>
                       </tbody>
                   </table>
@@ -199,10 +253,13 @@
     </div>
 
     <nav class="slides-navigation">
-      <a href="#" class="next">Next</a>
-      <a href="#" class="prev">Prev</a>
+      <a href="#" class="next">Next &gt;&gt;</a>
+      <a href="#" style="display:none;" class="prev">&lt;&lt; Back</a>
+      <a href="#" style="display:none;" class="re-try">&lt;&lt; Try Again</a>
+      <a href="#" style="display:none;" class="new">New Game</a>
     </nav>
   </div>
+
 </body>
 </html>
 
